@@ -1,0 +1,28 @@
+%html
+  %head
+    %title What shall we watch?
+  %body
+    %h1
+      What shall we watch?
+  
+    %h2
+      Start entering the name of the films below.
+  
+    #film_form
+      %form(action='/lookup' method='POST' class='film_form')
+        %label Film
+        %input(type='text' name='film_name' value='' class='film_name')
+        %input(type='hidden' name='film_number' value='1')
+      #film_1_result
+        Tab to the next box to search
+      %form(action='/lookup' method='POST' class='film_form add_film')        
+        %label Film
+        %input(type='text' name='film_name' value='' class='film_name')
+        %input(type='hidden' name='film_number' value='2')
+      #film_2_result
+        Tab to the next box to search        
+
+      
+    %script{:src=>"/javascript/jquery-1.4.2.min.js",:type=>"text/javascript"}
+    %script{:src=>"/javascript/jquery-form.js",:type=>"text/javascript"}    
+    %script{:src=>"/javascript/application.js",:type=>"text/javascript"}
