@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'imdb'
+require 'yaml'
 
 configure :development do
   Sinatra::Application.reset!
@@ -20,12 +21,12 @@ post '/lookup' do
   @result = "No film found :("  
   unless @film_name.empty?
   
-    @film_found = Imdb::Search.new(@film_name.to_s)
-    @film_count = @film_found.movies.count
+    @films_found = Imdb::Search.new(@film_name.to_s)
+    @film_count = @films_found.movies.count
   
     unless @film_count == 0
-      @title = @film_found.movies.first.title
-      @rating = @film_found.movies.first.rating
+      @title = @films_found.movies.first.title
+      @rating = @films_found.movies.first.rating
 
       @result = "#{@title} rated #{@rating.to_s}"
       @result += " and #{@film_count} more..." unless @film_count == 1
