@@ -2,7 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'imdb'
-require 'yaml'
 
 configure :development do
   Sinatra::Application.reset!
