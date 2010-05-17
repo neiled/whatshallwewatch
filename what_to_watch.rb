@@ -19,6 +19,12 @@ get '/' do
   haml :main
 end
 
+get '/base.css' do
+  header 'Content-Type' => 'text/css; charset=utf-8'
+  sass :base
+end
+
+
 post '/lookup' do
   @film_name = params[:film_name]
   @film_number = params[:film_number]  
@@ -35,14 +41,15 @@ post '/lookup' do
 
         #@result = "#{@title} rated #{@rating.to_s}"
         #@result += " and #{@film_count} more..." unless @film_count == 1
-        @result = get_film_result(@films_found.movies.first, @film_count)
+        @result = get_film_result(@films_found.movies.first, @film_count, @film_number)
     end
   end
-  "$(\"#film_#{@film_number}_result\").html(\"#{@result}\");"  
+  "$(\"#film_#{@film_number}_results\").after(\"#{@result}\").remove();$(\"#film_#{@film_number}_search\").html(\"\");" 
 end
 
-def get_film_result(film, film_count)
+def get_film_result(film, film_count, film_number)
+    result = "<div id=\'film_#{film_number}_results\'>"
     title_and_rating = "<div class=\'title\'>#{film.title}</div> <div class=\'rating\'>#{film.rating.to_s}</div>"
     remaining = "<div class=\'remaining\'>#{(film_count unless film_count == 1)}</div>"
-    title_and_rating + remaining
+    result + title_and_rating + remaining + "</div>"
 end 
