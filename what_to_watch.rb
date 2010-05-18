@@ -20,7 +20,7 @@ get '/' do
 end
 
 get '/base.css' do
-  header 'Content-Type' => 'text/css; charset=utf-8'
+  headers 'Content-Type' => 'text/css; charset=utf-8'
   sass :base
 end
 
