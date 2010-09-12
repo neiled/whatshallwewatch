@@ -14,19 +14,9 @@
       %form(action='/lookup' method='POST' class='film_form')
         %label Film
         %input(type='text' name='film_name' value='' class='film_name')
-        %input(type='hidden' name='film_number' value='1')
-      #film_1_search
-        Tab to the next box to search
-      %form(action='/lookup' method='POST' class='film_form add_film')        
-        %label Film
-        %input(type='text' name='film_name' value='' class='film_name')
-        %input(type='hidden' name='film_number' value='2')
-      #film_2_search
-        Tab to the next box to search
+        %input(type='submit' value='Search')
 
     #film_results_box
-      #film_1_results
-      #film_2_results
       
     %script{:src=>"/javascript/jquery-1.4.2.min.js",:type=>"text/javascript"}
     %script{:src=>"/javascript/jquery-form.js",:type=>"text/javascript"}    

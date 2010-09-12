@@ -39,12 +39,10 @@ post '/lookup' do
         @title = @films_found.movies.first.title
         @rating = @films_found.movies.first.rating
 
-        #@result = "#{@title} rated #{@rating.to_s}"
-        #@result += " and #{@film_count} more..." unless @film_count == 1
         @result = get_film_result(@films_found.movies.first, @film_count, @film_number)
     end
   end
-  "$(\"#film_#{@film_number}_results\").after(\"#{@result}\").remove();$(\"#film_#{@film_number}_search\").html(\"\");" 
+  "$(\"#film_results_box\").append(\"#{@result}\")" 
 end
 
 def get_film_result(film, film_count, film_number)
