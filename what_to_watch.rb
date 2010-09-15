@@ -39,15 +39,27 @@ post '/lookup' do
         @title = @films_found.movies.first.title
         @rating = @films_found.movies.first.rating
 
-        @result = get_film_result(@films_found.movies.first, @film_count, @film_number)
+        @result = get_film_result(@films_found.movies, @film_number)
     end
   end
   "$(\"#film_results_box\").append(\"#{@result}\")" 
 end
 
-def get_film_result(film, film_count, film_number)
-    result = "<div id=\'film_#{film_number}_results\'>"
-    title_and_rating = "<div class=\'title\'>#{film.title}</div> <div class=\'rating\'>#{film.rating.to_s}</div>"
-    remaining = "<div class=\'remaining\'>#{(film_count unless film_count == 1)}</div>"
-    result + title_and_rating + remaining + "</div>"
+def get_film_result(movies, film_number)
+  result = "<div id=\'film_#{film_number}_results\'>"
+  title_and_rating = "<div class=\'title\'>#{movies.first.title}</div> <div class=\'rating\'>#{movies.first.rating.to_s}</div>"
+  remaining = "<div class=\'remaining\'>#{(movies.count unless movies.count == 1)}</div>"
+  others = "<div class=\'others\'>#{get_others(movies)}</div>"
+  result + title_and_rating + remaining + others + "</div>"
 end 
+
+def get_others(movies)
+  others = ""
+  unless movies.count == 1 then
+    movies.each do |e|  
+      others += "<div class=\'other_movie\'><div class=\'title\'>#{e.title}</div><div class=\'id\'>#{e.id}</div></div>"
+    end
+  end
+  
+  others
+end
