@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'imdb'
+require 'badfruit'
 
 configure :development do
     Sinatra::Application.reset!
@@ -31,15 +31,16 @@ post '/lookup' do
 
   @result = "No film found :("  
   unless @film_name.empty?
-  
-    @films_found = Imdb::Search.new(@film_name.to_s)
-    @film_count = @films_found.movies.count
-  
-    unless @film_count == 0
-        @title = @films_found.movies.first.title
-        @rating = @films_found.movies.first.rating
+    bf = BadFruit.new("vq8jhsqmw6qkarkcsa5grxbd")
 
-        @result = get_film_result(@films_found.movies, @film_number)
+    @films_found = bf.movies.search_by_name(@film_name.to_s)
+    @film_count = @films_found.count
+
+    unless @film_count == 0
+        @title = @films_found.first.name
+        @rating = @films_found.first.scores.average
+
+        @result = get_film_result(@films_found, @film_number)
     end
   end
   "$(\"#film_results_box\").append(\"#{@result}\")" 
@@ -47,7 +48,7 @@ end
 
 def get_film_result(movies, film_number)
   result = "<div id=\'film_#{film_number}_results\'>"
-  title_and_rating = "<div class=\'title\'>#{movies.first.title}</div> <div class=\'rating\'>#{movies.first.rating.to_s}</div>"
+  title_and_rating = "<div class=\'title\'>#{movies.first.name}</div> <div class=\'rating\'>#{movies.first.scores.average.to_s}</div>"
   remaining = "<div class=\'remaining\'>#{(movies.count unless movies.count == 1)}</div>"
   others = "<div class=\'others\'>#{get_others(movies)}</div>"
   result + title_and_rating + remaining + others + "</div>"
@@ -57,7 +58,7 @@ def get_others(movies)
   others = ""
   unless movies.count == 1 then
     movies.each do |e|  
-      others += "<div class=\'other_movie\'><div class=\'title\'>#{e.title}</div><div class=\'id\'>#{e.id}</div></div>"
+      others += "<div class=\'other_movie\'><div class=\'title\'>#{e.name}</div><div class=\'id\'>#{e.id}</div></div>"
     end
   end
   
