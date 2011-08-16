@@ -8,3 +8,10 @@ $(document).ready(function() {
     }
   });  
 });
+
+(function($) {
+  
+  window.Film = Backbone.Model.extend({
+  
+  });
+})(jQuery);
