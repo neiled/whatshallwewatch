@@ -27,33 +27,23 @@ end
 
 
 post '/lookup' do
-  @film_name = params[:film_name]
-  @film_number = params[:film_number]  
+  film_name = params[:film_name]
+  title = "No film found :("
+  rating = 0
 
-  @result = "No film found :("  
-  unless @film_name.empty?
+  unless film_name.empty?
     bf = BadFruit.new("vq8jhsqmw6qkarkcsa5grxbd")
 
-    @films_found = bf.movies.search_by_name(@film_name.to_s)
-    @film_count = @films_found.count
+    films_found = bf.movies.search_by_name(film_name.to_s)
+    film_count = films_found.count
 
-    unless @film_count == 0
-        @title = @films_found.first.name
-        @rating = @films_found.first.scores.average
-
-        @result = get_film_result(@films_found, @film_number)
+    unless film_count == 0
+        title = films_found.first.name
+        rating = films_found.first.scores.average
     end
   end
-  "$(\"#film_results_box\").append(\"#{@result}\")" 
+  "window.films.add([{title: \"#{title}\", rating: #{rating}}]);"
 end
-
-def get_film_result(movies, film_number)
-  result = "<div id=\'film_#{film_number}_results\'>"
-  title_and_rating = "<div class=\'title\'>#{movies.first.name}</div> <div class=\'rating\'>#{movies.first.scores.average.to_s}</div>"
-  remaining = "<div class=\'remaining\'>#{(movies.count unless movies.count == 1)}</div>"
-  others = "<div class=\'others\'>#{get_others(movies)}</div>"
-  result + title_and_rating + remaining + others + "</div>"
-end 
 
 def get_others(movies)
   others = ""

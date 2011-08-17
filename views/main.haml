@@ -19,16 +19,26 @@
     %h2
       Start entering the name of the films below.
   
+
     #film_form
       %form(action='/lookup' method='POST' class='film_form')
         %label Film
         %input(type='text' name='film_name' value='' class='film_name')
-        %input(type='hidden' name='film_number' value='1')
         %input(type='submit' value='Search')
 
     #film_results_box
-      %script{:type=>"text/javascript",:src=>"https://www.google.com/jsapi?key=ABQIAAAARqO0mtjo3Ok5BLhk4lJJwRRfuJdoSDzvJL2Olwdpt7Vh88WwiBR4vGkLL4JD_Zg5jt3PJPm6_3U1Pw"}
+
+    %script{:type=>"text/template", :id=>"films-template"}
+      #films
       
+
+    %script{:type=>"text/template", :id=>"film-template"}
+      %span{:class=>"film-title"}
+        <%= title %>
+      %span{:class=>"film-rating"}
+        <%= rating %>
+       
+    %script{:type=>"text/javascript",:src=>"https://www.google.com/jsapi?key=ABQIAAAARqO0mtjo3Ok5BLhk4lJJwRRfuJdoSDzvJL2Olwdpt7Vh88WwiBR4vGkLL4JD_Zg5jt3PJPm6_3U1Pw"}
     %script{:src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js",:type=>"text/javascript"}
     %script{:src=>"/javascript/jquery-form.js",:type=>"text/javascript"}    
     %script{:src=>"/javascript/underscore.js",:type=>"text/javascript"}    
