@@ -29,14 +29,17 @@
     #film_results_box
 
     %script{:type=>"text/template", :id=>"films-template"}
+      %h3 Your Selected Films
       #films
       
 
     %script{:type=>"text/template", :id=>"film-template"}
       %span{:class=>"film-title"}
         <%= title %>
-      %span{:class=>"film-rating"}
-        <%= rating %>
+      :plain
+        <span class="film-rating-<%= quality %>">
+          <%= rating %>
+        </span>
        
     %script{:type=>"text/javascript",:src=>"https://www.google.com/jsapi?key=ABQIAAAARqO0mtjo3Ok5BLhk4lJJwRRfuJdoSDzvJL2Olwdpt7Vh88WwiBR4vGkLL4JD_Zg5jt3PJPm6_3U1Pw"}
     %script{:src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js",:type=>"text/javascript"}

@@ -42,7 +42,7 @@ post '/lookup' do
         rating = films_found.first.scores.average
     end
   end
-  "window.films.add([{title: \"#{title}\", rating: #{rating}}]);"
+  "window.films.add([{title: \"#{title}\", rating: #{rating}, quality: \"#{get_quality(rating)}\"}]);"
 end
 
 def get_others(movies)
@@ -54,4 +54,17 @@ def get_others(movies)
   end
   
   others
+end
+
+
+def get_quality(rating)
+  if(rating > 85)
+    'amazing'
+  elsif(rating > 75)
+    'very-good'
+  elsif(rating > 60)
+    'good'
+  else
+    'not-good'
+  end
 end

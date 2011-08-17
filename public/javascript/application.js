@@ -9,7 +9,15 @@ $(document).ready(function() {
 
 (function($) {
   
-  window.Film = Backbone.Model.extend({ });
+  window.Film = Backbone.Model.extend({
+    getFilmQuality: function() {
+        var rating = this.get('rating');
+        if(rating > 90) return 'amazing';
+        if(rating > 75) return 'very good';
+        if(rating > 60) return 'good';
+        return 'not good';
+    }
+  });
 
   window.FilmView = Backbone.View.extend({
     initialize: function() {
