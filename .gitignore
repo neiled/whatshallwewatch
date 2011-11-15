@@ -1,3 +1,10 @@
+db/schema.rb
+public/system
+*.DS_Store
+coverage/*
 *.swp
+rerun.txt
+tags
+!.keep
+vendor/bundler_gems
 .sass-cache
-.DS_Store
