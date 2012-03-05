@@ -3,6 +3,7 @@ require 'sinatra'
 require 'haml'
 require 'sass'
 require 'badfruit'
+require 'json'
 
 configure :development do
     Sinatra::Application.reset!
@@ -15,6 +16,9 @@ helpers do
   alias_method :h, :escape_html
 end
 
+before do
+  @bf = BadFruit.new("vq8jhsqmw6qkarkcsa5grxbd")
+end
 
 get '/' do
   haml :main
@@ -32,7 +36,6 @@ post '/lookup' do
   rating = 0
 
   unless film_name.empty?
-    bf = BadFruit.new("vq8jhsqmw6qkarkcsa5grxbd")
 
     films_found = bf.movies.search_by_name(film_name.to_s)
     film_count = films_found.count
@@ -43,6 +46,17 @@ post '/lookup' do
     end
   end
   "window.films.add([{title: \"#{title}\", rating: #{rating}, quality: \"#{get_quality(rating)}\"}]);"
+end
+
+get '/api/v1/film_search/:term' do
+  content_type :json
+  films_found = @bf.movies.search_by_name(params[:term], 20)
+  p films_found.count
+  results = []
+  films_found.each do |film|
+    results << {:title => film.name, :rating => film.scores.average}
+  end
+  results.to_json
 end
 
 def get_others(movies)
