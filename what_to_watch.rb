@@ -37,7 +37,7 @@ post '/lookup' do
 
   unless film_name.empty?
 
-    films_found = bf.movies.search_by_name(film_name.to_s)
+    films_found = @bf.movies.search_by_name(film_name.to_s)
     film_count = films_found.count
 
     unless film_count == 0
