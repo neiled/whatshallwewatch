@@ -2,6 +2,7 @@
   %head
     %title What shall we watch?
     %link{:href=>'base.css',:media=>'screen',:rel=>'stylesheet',:type=>'text/css'} 
+    %link{:href=>'css/bootstrap.min.css',:media=>'screen',:rel=>'stylesheet',:type=>'text/css'} 
     %script{:type=>"text/javascript"}
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-1098906-7']);
@@ -13,37 +14,44 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
   %body
-    %h1
-      What shall we watch?
-  
-    %h2
-      Start entering the name of the films below.
-  
+    .container
+      .hero-unit
+        %h1
+          What shall we watch?
+        %p
+          What shall we watch allows you to compare films at a glance. Just start entering the names of some films below and we'll automatically find out their rating and rank them in order!
+      .row
+        .span12
+          %h2
+            Start entering the name of the films below.
 
-    #film_form
-      %form(action='/lookup' method='POST' class='film_form')
-        %label Film
-        %input(type='text' name='film_name' value='' class='film_name')
-        %input(type='submit' value='Search')
+      .row
+        .span6
+          %form(action='/lookup' method='POST' class='film_form')
+            %label Film
+            %input(type='text' name='film_name' value='' class='film_name')
+            %input(type='submit' value='Search')
 
-    #film_results_box
+      .row
+        .span6
+          #film_results_box.well
+          %script{:type=>"text/template", :id=>"films-template"}
+            %h3 Your Selected Films
+            #films
+            
 
-    %script{:type=>"text/template", :id=>"films-template"}
-      %h3 Your Selected Films
-      #films
-      
-
-    %script{:type=>"text/template", :id=>"film-template"}
-      %span{:class=>"film-title"}
-        <%= title %>
-      :plain
-        <span class="film-rating-<%= quality %>">
-          <%= rating %>
-        </span>
-       
+          %script{:type=>"text/template", :id=>"film-template"}
+            %span{:class=>"film-title"}
+              <%= title %>
+            :plain
+              <span class="film-rating-<%= quality %>">
+                <%= rating %>
+              </span>
+           
     %script{:type=>"text/javascript",:src=>"https://www.google.com/jsapi?key=ABQIAAAARqO0mtjo3Ok5BLhk4lJJwRRfuJdoSDzvJL2Olwdpt7Vh88WwiBR4vGkLL4JD_Zg5jt3PJPm6_3U1Pw"}
-    %script{:src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js",:type=>"text/javascript"}
+    %script{:src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js",:type=>"text/javascript"}
     %script{:src=>"/js/jquery-form.js",:type=>"text/javascript"}    
     %script{:src=>"/js/underscore.js",:type=>"text/javascript"}    
     %script{:src=>"/js/backbone.js",:type=>"text/javascript"}    
+    %script{:src=>"/js/bootstrap.min.js",:type=>"text/javascript"}    
     %script{:src=>"/js/application.js",:type=>"text/javascript"}
