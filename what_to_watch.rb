@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'sass'
 require 'badfruit'
 require 'json'
+require 'less'
 
 configure :development do
     Sinatra::Application.reset!
@@ -26,7 +26,7 @@ end
 
 get '/base.css' do
   headers 'Content-Type' => 'text/css; charset=utf-8'
-  sass :base
+  less :base
 end
 
 
