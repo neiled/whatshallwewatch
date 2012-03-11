@@ -1,8 +1,10 @@
+<!DOCTYPE html>
 %html
   %head
     %title What shall we watch?
     %link{:href=>'base.css',:media=>'screen',:rel=>'stylesheet',:type=>'text/css'} 
     %link{:href=>'css/bootstrap.min.css',:media=>'screen',:rel=>'stylesheet',:type=>'text/css'} 
+    %link{:href=>'css/bootstrap-responsive.min.css',:media=>'screen',:rel=>'stylesheet',:type=>'text/css'} 
     %script{:type=>"text/javascript"}
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-1098906-7']);
@@ -17,6 +19,7 @@
     .container
       .hero-unit
         %h1
+          %img{:src=>"/img/movie.png",:width=>'128px',:height=>'128px'}
           What shall we watch?
         %p
           What shall we watch allows you to compare films at a glance. Just start entering the names of some films below and we'll automatically find out their rating and rank them in order!
@@ -27,10 +30,10 @@
 
       .row
         .span6
-          %form(action='/lookup' method='POST' class='film_form')
-            %label Film
-            %input(type='text' name='film_name' value='' class='film_name')
-            %input(type='submit' value='Search')
+          %form(action='/lookup' method='POST' class='film_form well form-inline')
+            %label Enter the film name
+            %input(type='text' name='film_name' value='' class='film_name span3')
+            %input(class='btn' type='submit' value='Search')
 
       .row
         .span6
