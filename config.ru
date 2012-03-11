@@ -1,3 +1,8 @@
+require 'rubygems'
+require 'bundler'
+
+Bundler.require
+
 require './what_to_watch'
 # require 'ruby-debug/debugger'
 # require 'rack/debug'
