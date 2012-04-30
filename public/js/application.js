@@ -5,6 +5,21 @@ $(document).ready(function() {
       $('.film_form').resetForm();
     }
   });  
+  $("#film_name").autocomplete({
+    source: function(request, response) {
+      $.ajax({
+        url: "/api/v1/film_search/",
+        data: { term: request.term},
+        success: function(data) {
+          response($.map(data, function(film_item) {
+            return {label: film_item.title, value: film_item.title}
+          }))
+        }
+      });
+    },
+    minLength: 2
+     });
+
 });
 
 (function($) {
