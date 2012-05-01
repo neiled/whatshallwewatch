@@ -12,12 +12,17 @@ $(document).ready(function() {
         data: { term: request.term},
         success: function(data) {
           response($.map(data, function(film_item) {
-            return {label: film_item.title, value: film_item.title}
+            return {label: film_item.title, value: film_item}
           }))
         }
       });
     },
-    minLength: 2
+    minLength: 2,
+    select: function( event, ui ) {
+      window.films.add([ui.item.value]);
+      $("#film_name").val('');
+      return false;
+    }
      });
 
 });

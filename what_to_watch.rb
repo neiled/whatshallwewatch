@@ -54,7 +54,7 @@ get '/api/v1/film_search/:term?' do
   p films_found.count
   results = []
   films_found.each do |film|
-    results << {:title => film.name, :rating => film.scores.average, :year => film.year}
+    results << {:title => film.name, :rating => film.scores.average, :year => film.year, :quality => get_quality(film.scores.average)}
   end
   results.to_json
 end
