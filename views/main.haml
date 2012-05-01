@@ -31,14 +31,13 @@
             Start entering the name of the films below.
 
       .row
-        .span6
-          %form(action='/lookup' method='POST' class='film_form well form-inline')
+        .span8
+          %form(action='/lookup' method='POST' class='film_form well form-search')
             %label Enter the film name
-            %input(type='text' id='film_name' name='film_name' value='' class='film_name span3')
-            %input(class='btn' type='submit' value='Search')
+            %input(type='text' id='film_name' name='film_name' value='' class='film_name span3 search-query')
 
       .row
-        .span6
+        .span8
           #film_results_box.well
           %script{:type=>"text/template", :id=>"films-template"}
             %h3 Your Selected Films
