@@ -25,6 +25,8 @@ $(document).ready(function() {
     }
      });
 
+     $("#film_name").focus();
+
 });
 
 (function($) {
@@ -36,6 +38,9 @@ $(document).ready(function() {
         if(rating > 75) return 'very good';
         if(rating > 60) return 'good';
         return 'not good';
+    },
+    toString : function() {
+    return "test";
     }
   });
 
