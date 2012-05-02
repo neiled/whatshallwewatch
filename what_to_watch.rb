@@ -48,13 +48,13 @@ post '/lookup' do
   "window.films.add([{title: \"#{title}\", rating: #{rating}, quality: \"#{get_quality(rating)}\"}]);"
 end
 
-get '/api/v1/film_search/:term' do
+get '/api/v1/film_search/:term?' do
   content_type :json
   films_found = @bf.movies.search_by_name(params[:term], 20)
   p films_found.count
   results = []
   films_found.each do |film|
-    results << {:title => film.name, :rating => film.scores.average, :year => film.year}
+    results << {:title => film.name, :rating => film.scores.average, :year => film.year, :quality => get_quality(film.scores.average)}
   end
   results.to_json
 end
