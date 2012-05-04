@@ -18,6 +18,10 @@ $(document).ready(function() {
       });
     },
     minLength: 2,
+    focus: function( event, ui ) {
+      $( "#film_name" ).val( ui.item.label );
+      return false;
+    },
     select: function( event, ui ) {
       window.films.add([ui.item.value]);
       $("#film_name").val('');
